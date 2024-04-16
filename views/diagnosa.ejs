@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Classification</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:display=swap');
-        *{
+
+        * {
             font-family: "Poppins", sans-serif;
             padding: 0;
             margin: 0;
@@ -15,7 +17,8 @@
             align-items: center;
             box-sizing: border-box;
         }
-        header{
+
+        header {
             position: fixed;
             top: 0;
             left: 0;
@@ -26,18 +29,22 @@
             display: flex;
             justify-content: space-between;
         }
-        img{
+
+        img {
             width: 300px;
             height: 144px;
         }
-        body{
+
+        body {
             background-color: #ECF4D6;
         }
-        form img{
+
+        form img {
             width: 120px;
             height: 120px;
         }
-        .container button{
+
+        .container button {
             font-size: x-large;
             padding: 10px 25px;
             border-radius: 20px;
@@ -46,11 +53,13 @@
             color: white;
             margin: 20px 0;
         }
-        form label{
+
+        form label {
             font-size: 24px;
             font-weight: 400;
         }
-        form a{
+
+        form a {
             display: flex;
             font-size: 48px;
             background-color: #2D9596;
@@ -65,13 +74,15 @@
             align-items: center;
             text-align: center;
         }
-        .navigation img{
+
+        .navigation img {
             display: flex;
             width: 80px;
             height: 80px;
             border-radius: 100%;
         }
-        .container{
+
+        .container {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -79,10 +90,12 @@
             /* margin-top: 150px; */
             flex: 1;
         }
-        form{
+
+        form {
             display: flex;
             flex-direction: column;
         }
+
         #uploadForm {
             border: 2px dashed #ccc;
             border-radius: 10px;
@@ -93,9 +106,11 @@
             width: 40%;
             height: 60%;
         }
+
         #uploadForm.dragover {
             background-color: #23dc5d;
         }
+
         #output {
             display: none;
             flex: 1;
@@ -103,13 +118,14 @@
             padding: 10px;
             border: 1px solid #ccc;
             font-size: x-large;
-            text-align: left ;
+            text-align: left;
             align-items: start;
         }
-        .sidebar{
+
+        .sidebar {
             display: flex;
             justify-content: left;
-            flex-direction: column  ;
+            flex-direction: column;
             margin-left: 32px;
             width: 259px;
             /* height: 100%; */
@@ -122,7 +138,8 @@
             font-weight: 200;
             box-sizing: border-box;
         }
-        .sidebar button{
+
+        .sidebar button {
             margin-top: 65vh;
             width: 227px;
             height: 58px;
@@ -133,7 +150,8 @@
             color: white;
             background-color: #2D9596;
         }
-        .sidebar a{
+
+        .sidebar a {
             display: flex;
             align-items: center;
             width: 227px;
@@ -145,7 +163,8 @@
             font-weight: 300;
             text-decoration: none;
         }
-        .flex{
+
+        .flex {
             display: flex;
             flex-direction: row;
             justify-content: left;
@@ -153,12 +172,15 @@
             gap: 20px;
             min-height: 80vh;
         }
-        #dropArea{
-            background-image: "/upload/Image (1).png";
+
+        #dropArea {
+            background-size: cover;
+            background-position: center;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
+
 <body>
     <header>
         <img src="/uploads/img/Logo.png" alt="logo">
@@ -192,20 +214,20 @@
 
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const lakukanDiagnosaButton = document.getElementById("lakukanDiagnosa");
             const formContainer = document.querySelector(".container");
             const outputDiv = document.getElementById("output");
             const dropArea = document.getElementById('dropArea');
             const imgView = document.getElementById("img-view");
 
-            lakukanDiagnosaButton.addEventListener("click", function() {
+            lakukanDiagnosaButton.addEventListener("click", function () {
                 formContainer.style.display = "flex"; // Tampilkan form saat tombol ditekan
                 outputDiv.style.display = "none"; // Sembunyikan div output saat form muncul
             });
 
             const closeButton = document.getElementById("closeForm");
-            closeButton.addEventListener("click", function() {
+            closeButton.addEventListener("click", function () {
                 formContainer.style.display = "none"; // Sembunyikan form saat tombol "Close" ditekan
                 outputDiv.style.display = "flex"; // Tampilkan kembali div output saat form disembunyikan
             });
@@ -250,7 +272,7 @@
             // }
 
             // Menambahkan event listener ke formulir untuk menangani pengiriman formulir
-            dropArea.addEventListener("change",uploadImage);
+            dropArea.addEventListener("change", uploadImage);
             function uploadImage() {
                 let imgLink = URL.createObjectURL(fileInput.files[0]);
                 dropArea.style.backgroundImage = `url("/uploads/${fileInput.files[0].name}")`;
@@ -258,21 +280,21 @@
                 imgView.style.opacity = 0;
                 // document.getElementById('fileInput').style.backgroundImage = `URL(${imgLink})`;
             }
-            
+
             form.addEventListener("submit", submitForm);
             // Mengatur event listener untuk mencegah peristiwa default saat file ditarik dan dilepas
-            document.body.addEventListener("dragover", function(event) {
+            document.body.addEventListener("dragover", function (event) {
                 event.preventDefault();
                 form.classList.add("dragover");
             });
 
-            document.body.addEventListener("dragleave", function(event) {
+            document.body.addEventListener("dragleave", function (event) {
                 event.preventDefault();
                 form.classList.remove("dragover");
             });
 
             // Menangani peristiwa drop
-            document.body.addEventListener("drop", function(event) {
+            document.body.addEventListener("drop", function (event) {
                 event.preventDefault();
                 form.classList.remove("dragover");
 
@@ -290,4 +312,5 @@
 
     </script>
 </body>
+
 </html>
